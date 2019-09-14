@@ -1,0 +1,112 @@
+{
+    "name": "empty-webpack-project",
+    "version": "1.0.0",
+    "description": "An empty webpack project with develop and production settings.",
+    "main": "src/main.js",
+    "scripts": {
+        "prettier-format": "prettier %v% --write --loglevel=warn && npm run fix-format",
+        "fix-format": "eslint %v% --fix && stylelint  %v% --fix",
+        "fix-format-all": "eslint src/ --ext .js,.vue,.html,.htm --fix && stylelint src/**/*.{vue,css,scss,sass} --fix",
+        "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js",
+        "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+        "test": "cross-env BABEL_ENV=test jest"
+    },
+    "browserslist": [
+        "last 2 version",
+        "> 1%",
+        "maintained node versions",
+        "not dead"
+    ],
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,vue,html,htm}": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{vue,css,scss,sass}": [
+            "stylelint --fix",
+            "git add"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:sunxuia/empty-webpack-project.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@babel/plugin-transform-runtime": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/runtime": "^7.5.5",
+        "@vue/test-utils": "^1.0.0-beta.27",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-eslint": "^10.0.3",
+        "babel-helper-vue-jsx-merge-props": "^2.0.3",
+        "babel-jest": "^24.9.0",
+        "babel-loader": "^8.0.4",
+        "babel-plugin-dynamic-import-node": "^2.3.0",
+        "babel-plugin-syntax-jsx": "^6.18.0",
+        "babel-plugin-transform-vue-jsx": "^3.7.0",
+        "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.0.4",
+        "cross-env": "^5.2.0",
+        "css-loader": "^3.2.0",
+        "eslint": "^6.2.2",
+        "eslint-config-standard": "^14.1.0",
+        "eslint-friendly-formatter": "^4.0.1",
+        "eslint-loader": "^3.0.0",
+        "eslint-plugin-babel": "^5.3.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-jest": "^22.15.2",
+        "eslint-plugin-node": "^9.1.0",
+        "eslint-plugin-promise": "^4.0.1",
+        "eslint-plugin-standard": "^4.0.1",
+        "eslint-plugin-vue": "^5.2.3",
+        "file-loader": "^4.2.0",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "html-webpack-plugin": "^3.2.0",
+        "husky": "^3.0.4",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^24.9.0",
+        "lint-staged": "^9.2.5",
+        "lodash": "^4.17.15",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-notifier": "^5.4.3",
+        "node-sass": "^4.10.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.1",
+        "portfinder": "^1.0.23",
+        "postcss": "^7.0.6",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.7.0",
+        "prettier": "^1.15.2",
+        "sass-loader": "^7.3.1",
+        "style-loader": "^1.0.0",
+        "stylelint": "^10.1.0",
+        "stylelint-config-recommended": "^2.1.0",
+        "stylelint-config-recommended-scss": "^3.2.0",
+        "stylelint-scss": "^3.10.0",
+        "stylelint-webpack-plugin": "^0.10.5",
+        "url-loader": "^2.1.0",
+        "vue-jest": "^3.0.1",
+        "vue-loader": "^15.7.1",
+        "vue-style-loader": "^4.1.2",
+        "vue-template-compiler": "^2.6.10",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.7",
+        "webpack-dev-server": "^3.8.0",
+        "webpack-merge": "^4.2.2"
+    },
+    "dependencies": {
+        "@babel/polyfill": "^7.4.4",
+        "vue": "^2.6.10",
+        "vue-meta": "^2.2.1",
+        "vue-router": "^3.1.2",
+        "vuex": "^3.1.1"
+    }
+}
