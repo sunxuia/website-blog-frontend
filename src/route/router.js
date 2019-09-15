@@ -5,6 +5,7 @@ import createRoutes from './routes'
 Vue.use(Router)
 
 export default () => {
+    console.log('public path is', process.env.VARIABLES)
     const router = new Router({
         base: process.env.VARIABLES.PUBLIC_PATH,
         routes: createRoutes(),

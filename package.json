@@ -34,7 +34,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:sunxuia/empty-webpack-project.git"
+        "url": "git@github.com:sunxuia/website-blog-frontend.git"
     },
     "author": "",
     "license": "ISC",

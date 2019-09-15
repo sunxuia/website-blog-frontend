@@ -78,7 +78,7 @@ module.exports = {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^test/(.*)$': '<rootDir>/test/$1',
         // Do not use vue.esm.js (which uses es6 module) and runtime version to avoid error.
-        'vue$': 'vue/dist/vue.js'
+        vue$: 'vue/dist/vue.js'
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -123,7 +123,9 @@ module.exports = {
     // runner: "jest-runner",
 
     // The paths to modules that run some code to configure or set up the testing environment before each test
-    // setupFiles: [],
+    setupFiles: [
+        './test/setup.js'
+    ],
 
     // The path to a module that runs some code to configure or set up the testing framework before each test
     // setupTestFrameworkScriptFile: null,
