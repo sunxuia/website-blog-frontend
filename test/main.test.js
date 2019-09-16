@@ -1,5 +1,5 @@
 beforeEach(() => {
-    document.body.innerHTML = '<div id="app" />'
+    document.body.innerHTML = '<div id="initial-loading" /><div id="app" />'
 })
 
 it('should mount app', () => {
