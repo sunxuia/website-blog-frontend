@@ -40,3 +40,9 @@ body {
 .fade-leave {
     opacity: 1;
 }
+
+.children-justify {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

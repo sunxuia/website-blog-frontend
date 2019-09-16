@@ -10,7 +10,7 @@
                     :src="logo"
                     style="width: 30px; height: 30px; vertical-align:middle;"
                 >
-                <span>任务中心</span>
+                <span>首页</span>
             </router-link>
         </div>
         <search-content />

@@ -41,6 +41,7 @@ export default {
     methods: {
         onFocus () {
             if (!this.foucused) {
+                this.foucused = true
                 const classList = this.$refs.input.$el.classList
                 classList.remove(this.$style.blur)
                 classList.add(this.$style.focus)
@@ -48,6 +49,7 @@ export default {
         },
         onBlur () {
             if (this.foucused) {
+                this.foucused = false
                 const classList = this.$refs.input.$el.classList
                 classList.remove(this.$style.focus)
                 classList.add(this.$style.blur)
