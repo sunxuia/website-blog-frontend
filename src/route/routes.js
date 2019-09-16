@@ -1,6 +1,27 @@
-export default () => [
-    {
-        path: '/',
-        component: () => import('@/views/hello-world.vue')
+export default () => [{
+    path: '/error',
+    component: () => import('@/views/error/code')
+}, {
+    path: '/',
+    component: () => import('@/views/layout/layout'),
+    children: functionRoute()
+}]
+
+function functionRoute () {
+    const res = []
+
+    function addView (urlPath, componentPath) {
+        res.push({
+            path: urlPath,
+            component: () => import(`@/views/${componentPath}`)
+        })
     }
-]
+
+    // function addRedirect (path, redirect) {
+    //     res.push({ path, redirect })
+    // }
+
+    addView('/', 'index/index')
+
+    return res
+}

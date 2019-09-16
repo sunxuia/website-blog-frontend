@@ -10,6 +10,9 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 
 const config = merge(baseWebpackConfig, {
+    entry: {
+        app: resolvePath('/src/main-dev.js')
+    },
     mode: 'development',
     devtool: 'eval-source-map',
     // webpack-dev-server
@@ -46,7 +49,8 @@ const config = merge(baseWebpackConfig, {
         // global variable
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('development')
+                NODE_ENV: JSON.stringify('development'),
+                MOCK_FETCH: JSON.stringify(process.env.MOCK_FETCH === 'true')
             }
         }),
         new StylelintWebpackPlugin({
