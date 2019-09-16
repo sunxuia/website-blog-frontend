@@ -1,12 +1,7 @@
-/* eslint-disable no-unused-vars */
-import fetchMock from 'fetch-mock'
+import * as M from './mock-fetch-utils'
 
-fetchMock.config.fallbackToNetwork = true
-
-function delay (res) {
-    return new Promise(resolve => setTimeout(resolve, 0)).then(() => res)
-}
-
-function mockGetOk (url, returnValue) {
-    fetchMock.get(url, delay(returnValue))
-}
+M.mockGetOk({ path: '/login/status', gateway: true }, {
+    id: 100,
+    name: '王大拿',
+    roles: ['ROLE_NORMAL']
+})

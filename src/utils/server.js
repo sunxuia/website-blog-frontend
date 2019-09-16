@@ -1,6 +1,5 @@
-const API_PATH_PREFIX = process.env.VARIABLES.API_PATH_PREFIX.endsWith('/')
-    ? process.env.VARIABLES.API_PATH_PREFIX.substring(0, process.env.VARIABLES.API_PATH_PREFIX.length - 1)
-    : process.env.VARIABLES.API_PATH_PREFIX
+const API_PATH_PREFIX = process.env.VARIABLES.API_PATH_PREFIX
+const GATEWAY_PATH_PREFIX = process.env.VARIABLES.GATEWAY_PATH_PREFIX
 
 export function getData (url, arg = {}) {
     return fetchData(url, arg)
@@ -16,7 +15,7 @@ function fetchData (url, arg) {
     ), realUrl)
 }
 
-function unwrapUrl (urlObj) {
+export function unwrapUrl (urlObj) {
     if (typeof urlObj === 'string') {
         return API_PATH_PREFIX + (urlObj.startsWith('/') ? urlObj : ('/' + urlObj))
     }
@@ -36,10 +35,13 @@ function unwrapUrl (urlObj) {
     if (queryStr.length) {
         res += '?' + queryStr.substring(0, queryStr.length - 1)
     }
-    if (!urlObj.absolute) {
-        res = API_PATH_PREFIX + res
+    if (urlObj.absolute) {
+        return res
     }
-    return res
+    if (urlObj.gateway) {
+        return GATEWAY_PATH_PREFIX + res
+    }
+    return API_PATH_PREFIX + res
 }
 
 function wrapFetchResult (promise, url) {

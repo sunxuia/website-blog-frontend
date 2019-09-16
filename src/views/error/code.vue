@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         back () {
-            history.go(-1)
+            this.$router.back()
         }
     }
 }

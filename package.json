@@ -16,7 +16,8 @@
         "last 2 version",
         "> 1%",
         "maintained node versions",
-        "not dead"
+        "not dead",
+        "not IE > 0"
     ],
     "husky": {
         "hooks": {
@@ -107,7 +108,7 @@
     "dependencies": {
         "@babel/polyfill": "^7.6.0",
         "element-ui": "^2.12.0",
-        "isomorphic-fetch": "^2.2.1",
+        "mockjs": "^1.0.1-beta3",
         "nprogress": "^0.2.0",
         "vue": "^2.6.10",
         "vue-meta": "^2.2.2",
