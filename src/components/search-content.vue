@@ -32,15 +32,27 @@
 
 <script>
 export default {
+    props: {
+        searchText: {
+            type: String,
+            required: false,
+            default: ''
+        }
+    },
     data () {
         return {
             text: '',
             foucused: false
         }
     },
+    watch: {
+        searchText (newValue) {
+            this.text = newValue
+        }
+    },
     methods: {
         onFocus () {
-            if (!this.foucused) {
+            if (!this.foucused && this.$refs.input.$el) {
                 this.foucused = true
                 const classList = this.$refs.input.$el.classList
                 classList.remove(this.$style.blur)
@@ -48,7 +60,7 @@ export default {
             }
         },
         onBlur () {
-            if (this.foucused) {
+            if (this.foucused && this.$refs.input.$el) {
                 this.foucused = false
                 const classList = this.$refs.input.$el.classList
                 classList.remove(this.$style.focus)
@@ -56,11 +68,10 @@ export default {
             }
         },
         search () {
+            const query = { text: this.text.trim() }
             this.$router.push({
                 path: '/search',
-                query: {
-                    path: this.text.trim()
-                }
+                query
             })
         }
     }

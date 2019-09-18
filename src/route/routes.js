@@ -22,6 +22,7 @@ function functionRoute () {
     // }
 
     addView('/', 'index/index')
+    addView('/search', 'index/search')
 
     return res
 }

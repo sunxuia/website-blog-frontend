@@ -98,6 +98,10 @@ export function getJson (url, arg = {}) {
     return getData(url, arg).then(res => res.json().catch(e => { }))
 }
 
+export function getText (url, arg = {}) {
+    return getData(url, arg).then(res => res.text())
+}
+
 export function postData (url, arg = {}) {
     return fetchData(
         url,

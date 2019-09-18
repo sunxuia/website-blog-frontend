@@ -17,7 +17,7 @@
         <div :class="$style.userName">
             <a
                 v-if="!isLoggedIn"
-                href="/login"
+                :href="loginUrl"
             >登录</a>
             <a
                 v-else
@@ -56,7 +56,7 @@
 </style>
 
 <script>
-import SearchContent from './search-content'
+import SearchContent from '@/components/search-content'
 import logo from '@/../logo.png'
 
 export default {
@@ -66,7 +66,10 @@ export default {
     data () {
         return {
             collapse: false,
-            loginUrl: process.env.VARIABLES.GATEWAY_PATH_PREFIX + '/login/redirect?redirect=' + encodeURIComponent(document.location),
+            loginUrl:
+                process.env.VARIABLES.GATEWAY_PATH_PREFIX +
+                '/login/redirect?redirect=' +
+                encodeURIComponent(document.location),
             logoutUrl: process.env.VARIABLES.LOGOUT_URL,
             logo
         }
@@ -79,7 +82,6 @@ export default {
             return !!this.$store.getters.user
         }
     },
-    methods: {
-    }
+    methods: {}
 }
 </script>

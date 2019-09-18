@@ -6,6 +6,12 @@ import eventBus from '../utils/event-bus'
 
 Vue.use(Router)
 
+// 解决这个版本中的NavigationDuplicated 问题 (通过添加一个catch)
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
 export default () => {
     const router = new Router({
         base: process.env.VARIABLES.PUBLIC_PATH,

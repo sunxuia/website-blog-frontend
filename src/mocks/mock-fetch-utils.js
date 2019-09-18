@@ -8,11 +8,15 @@ const DELAY_MILLIS = 0
 fetchMock.config.fallbackToNetwork = true
 
 export function mockGetOk (url, returnValue) {
-    fetchMock.get(S.unwrapUrl(url), delay(returnValue))
+    fetchMock.get(S.unwrapUrl(url), typeof returnValue === 'function' ? (...args) => delay(returnValue(args)) : delay(returnValue))
 }
 
 function delay (res) {
     return new Promise(resolve => setTimeout(resolve, DELAY_MILLIS)).then(() => res)
+}
+
+export function mockMatchGetOk (type, url, returnValue) {
+    fetchMock.get(`${type}:${S.unwrapUrl(url)}`, typeof returnValue === 'function' ? (...args) => delay(returnValue(args)) : delay(returnValue))
 }
 
 export function mockPostError (url, status, message) {

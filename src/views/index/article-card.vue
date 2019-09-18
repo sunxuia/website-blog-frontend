@@ -1,11 +1,11 @@
 <template>
     <div :class="$style.card">
+        <!-- eslint-disable vue/no-v-html -->
         <router-link
             :to="`/article/${article.id}/view`"
             :class="$style.cardTitle"
-        >
-            {{ article.title }}
-        </router-link>
+            v-html="wrapSearchText(article.title)"
+        />
         <div :class="[$style.cardInfo, 'children-justify']">
             <div>
                 <img
@@ -19,9 +19,11 @@
                 <span v-if="hasEdit"> (修改于 {{ getRelativeDate(article.editTime) }})</span>
             </div>
         </div>
-        <p :class="$style.cardBodyText">
-            {{ article.text }}
-        </p>
+        <p
+            :class="$style.cardBodyText"
+            v-html="wrapSearchText(article.text)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
     </div>
 </template>
 
@@ -69,21 +71,30 @@
     -webkit-line-clamp: 3;
     overflow: hidden;
 }
+
+.search-text {
+    color: red;
+}
 </style>
 
 <script>
 import { getDate, format } from '@/utils/date-utils'
+import { encode as htmlEncode } from '@/utils/html-code'
+import { encode as regExpEncode } from '@/utils/regexp-utils'
 
 export default {
     props: {
         article: {
             type: Object,
             required: true
+        },
+        searchText: {
+            type: String,
+            default: ''
         }
     },
     computed: {
         hasEdit () {
-            console.log('editTime', this.article.editTime)
             return this.article.editTime && this.article.editTime !== this.article.createTime
         }
     },
@@ -111,6 +122,14 @@ export default {
                 return format(time, 'MM:dd')
             }
             return format(time, 'yyyy-MM-dd')
+        },
+        wrapSearchText (text) {
+            let res = htmlEncode(text)
+            if (this.searchText) {
+                res = res.replace(new RegExp(regExpEncode(this.searchText), 'g'),
+                    `<span class="${this.$style.searchText}">${this.searchText}</span>`)
+            }
+            return res
         }
     }
 }
