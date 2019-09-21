@@ -27,3 +27,28 @@ export function getDate (date) {
     res.setMilliseconds(0)
     return res
 }
+
+export function getRelativeDate (time) {
+    if (!(time instanceof Date)) {
+        time = new Date(time)
+    }
+    const dayCount = 24 * 60 * 60 * 1000
+    const now = new Date()
+    const interval = now.getTime() - time.getTime()
+    if (interval < 60 * 60 * 1000) {
+        return Math.ceil(interval / dayCount, 1) + '天后'
+    }
+    if (interval <= 0) {
+        return '即将'
+    }
+    if (interval < 1 * 60 * 1000) {
+        return '刚刚'
+    }
+    if (now - getDate(time).getTime() < 24 * 60 * 60 * 1000) {
+        return format(time, 'HH:mm')
+    }
+    if (now.getFullYear() === time.getFullYear()) {
+        return format(time, 'MM:dd')
+    }
+    return format(time, 'yyyy-MM-dd')
+}

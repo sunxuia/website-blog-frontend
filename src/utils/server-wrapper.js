@@ -1,4 +1,5 @@
 import eventBus from './event-bus'
+import * as server from './server'
 
 export function errorHint (error) {
     const details = (error.status ? error.status + ' ' : '') + error.statusText
@@ -27,4 +28,8 @@ export async function getResult (promise) {
         errorHint(e)
         throw e
     })
+}
+
+export async function getJsonResult (url, arg = {}) {
+    return getResult(server.getJson(url, arg))
 }

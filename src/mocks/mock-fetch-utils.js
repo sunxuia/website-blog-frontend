@@ -8,7 +8,17 @@ const DELAY_MILLIS = 0
 fetchMock.config.fallbackToNetwork = true
 
 export function mockGetOk (url, returnValue) {
-    fetchMock.get(S.unwrapUrl(url), typeof returnValue === 'function' ? (...args) => delay(returnValue(args)) : delay(returnValue))
+    fetchMock.get(S.unwrapUrl(url), unwrapReturnValue(returnValue))
+}
+
+function unwrapReturnValue (returnValue) {
+    if (returnValue === undefined) {
+        return delay()
+    }
+    if (typeof returnValue === 'function') {
+        return (...args) => delay(returnValue(args))
+    }
+    return delay(returnValue)
 }
 
 function delay (res) {
@@ -16,7 +26,21 @@ function delay (res) {
 }
 
 export function mockMatchGetOk (type, url, returnValue) {
-    fetchMock.get(`${type}:${S.unwrapUrl(url)}`, typeof returnValue === 'function' ? (...args) => delay(returnValue(args)) : delay(returnValue))
+    fetchMock.get(unwrapMatchUrl(type, url), unwrapReturnValue(returnValue))
+}
+
+function unwrapMatchUrl (type, url) {
+    if (type === 'regexp') {
+        let prefix = S.unwrapUrl('/')
+        prefix = prefix.substring(1)
+        if (prefix.endsWith('/')) {
+            prefix = prefix.substring(0, prefix.length - 1)
+        }
+        prefix = prefix.replace(/\\/g, '\\').replace(/\//g, '\\/')
+        url = new RegExp(prefix + url)
+        return url
+    }
+    return `${type}:${S.unwrapUrl(url)}`
 }
 
 export function mockPostError (url, status, message) {
@@ -38,12 +62,28 @@ function errorResponse (url, status, message) {
     )
 }
 
+export function mockPostOk (url, returnValue) {
+    fetchMock.post(S.unwrapUrl(url), unwrapReturnValue(returnValue))
+}
+
+export function mockMatchPostOk (type, url, returnValue) {
+    fetchMock.post(unwrapMatchUrl(type, url), unwrapReturnValue(returnValue))
+}
+
 export function mockPutOk (url, returnValue) {
-    fetchMock.put(S.unwrapUrl(url), returnValue !== undefined ? delay(returnValue) : delay(200))
+    fetchMock.put(S.unwrapUrl(url), unwrapReturnValue(returnValue))
+}
+
+export function mockMatchPutOk (type, url, returnValue) {
+    fetchMock.put(unwrapMatchUrl(type, url), unwrapReturnValue(returnValue))
 }
 
 export function mockDeleteOk (url, returnValue) {
-    fetchMock.delete(S.unwrapUrl(url), returnValue !== undefined ? delay(returnValue) : delay(200))
+    fetchMock.delete(S.unwrapUrl(url), unwrapReturnValue(returnValue))
+}
+
+export function mockMatchDeleteOk (type, url, returnValue) {
+    fetchMock.delete(unwrapMatchUrl(type, url), unwrapReturnValue(returnValue))
 }
 
 export function mockList (obj, count = 5, upperLimit) {

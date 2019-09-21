@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
+const variables = require('./variables')
 
 const useSourceMap = true
 
@@ -75,6 +76,7 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             template: resolvePath('/index.html'),
             favicon: resolvePath('logo.png'),
+            publicPath: variables.PUBLIC_PATH,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

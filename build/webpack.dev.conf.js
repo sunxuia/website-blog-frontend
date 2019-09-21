@@ -61,7 +61,8 @@ const config = merge(baseWebpackConfig, {
         // create index.html
         new HtmlWebpackPlugin({
             template: resolvePath('/index.html'),
-            favicon: resolvePath('logo.png')
+            favicon: resolvePath('logo.png'),
+            publicPath: variables.PUBLIC_PATH
         }),
         // hot replacement for webpack-dev-server
         new webpack.HotModuleReplacementPlugin()

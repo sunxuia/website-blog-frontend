@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.root">
-        <div>
+        <div style="flex-grow:1">
             <article-card
                 v-for="i in list"
                 :key="i.id"
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div>
-            <right-side :class="$style.topSide" />
+            <right-side />
         </div>
     </div>
 </template>
@@ -41,8 +41,7 @@ import nprogress from 'nprogress'
 import ArticleCard from './article-card'
 import RightSide from './right-side'
 
-import { getJson } from '@/utils/server'
-import { getResult } from '@/utils/server-wrapper'
+import { getJsonResult } from '@/utils/server-wrapper'
 
 export default {
     components: {
@@ -58,13 +57,13 @@ export default {
     methods: {
         async loadMore () {
             this.loadingMore = true
-            const list = await getResult(getJson('/articles/latest?count=20'))
+            const list = await getJsonResult('/articles/latest?count=20')
             this.list.push(...list)
             this.loadingMore = false
         }
     },
     async beforeRouteEnter (to, from, next) {
-        const list = await getResult(getJson('/articles/latest?count=20'))
+        const list = await getJsonResult('/articles/latest?count=20')
         nprogress.set(0.9)
         next(vm => {
             vm.$data.list = list

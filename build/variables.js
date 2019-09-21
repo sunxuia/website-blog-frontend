@@ -1,4 +1,4 @@
-module.exports = {
+const variables = {
     /**
      * public path
      */
@@ -16,3 +16,11 @@ module.exports = {
      */
     LOGOUT_URL: 'https://example.com/info'
 }
+
+for (const key of Object.keys(variables)) {
+    const commandValue = process.env[key]
+    if (commandValue !== undefined) {
+        variables[key] = commandValue
+    }
+}
+module.exports = variables

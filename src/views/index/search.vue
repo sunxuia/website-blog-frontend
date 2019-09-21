@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.root">
-        <div>
+        <div style="flex-grow:1">
             <div style="margin-left: 10px; margin-right: 10px;">
                 <search-content :search-text="searchText" />
                 <p v-if="searchText">
@@ -32,7 +32,7 @@
                 />
             </div>
         </div>
-        <right-side :class="$style.topSide" />
+        <right-side />
     </div>
 </template>
 
@@ -67,26 +67,18 @@ import { getResult } from '@/utils/server-wrapper'
 function getSearchResult (text, pageIndex, pageSize) {
     return getResult(getJson({
         path: '/articles/search',
-        queries: [{
-            name: 'text',
-            value: text
-        }, {
-            name: 'pageIndex',
-            value: pageIndex
-        }, {
-            name: 'pageSize',
-            value: pageSize
-        }]
+        query: {
+            text,
+            pageIndex,
+            pageSize
+        }
     }))
 }
 
 function getSearchTotal (text) {
     return getResult(getText({
         path: '/articles/search/count',
-        queries: [{
-            name: 'text',
-            value: text
-        }]
+        query: { text }
     }))
 }
 
@@ -123,7 +115,6 @@ export default {
             nprogress.start()
             this.pageSize = newPageSize
             nprogress.set(0.8)
-            console.log('page size changed')
             this.list = await getSearchResult(this.searchText, this.pageIndex, this.pageSize)
             nprogress.done()
         },
@@ -131,7 +122,6 @@ export default {
             nprogress.start()
             this.pageIndex = newPageIndex
             nprogress.set(0.8)
-            console.log('page index changed')
             this.list = await getSearchResult(this.searchText, this.pageIndex, this.pageSize)
             nprogress.done()
         }

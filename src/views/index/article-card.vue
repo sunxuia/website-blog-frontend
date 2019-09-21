@@ -14,9 +14,20 @@
                 >
                 <span>{{ article.creator.name }}</span>
             </div>
-            <div>
-                <span>创建于 {{ getRelativeDate(article.createTime) }}</span>
-                <span v-if="hasEdit"> (修改于 {{ getRelativeDate(article.editTime) }})</span>
+            <div style="font-size: 14px;">
+                <el-popover
+                    v-if="hasEdit"
+                    placement="top-start"
+                    trigger="hover"
+                    size="mini"
+                    :content="getRelativeDate(article.createTime) + '创建'"
+                >
+                    <span
+                        slot="reference"
+                        style="color: darkgrey; text-decoration: underline; cursor: pointer"
+                    > {{ getRelativeDate(article.editTime) }} 编辑</span>
+                </el-popover>
+                <span v-else>{{ getRelativeDate(article.createTime) }} 创建</span>
             </div>
         </div>
         <p
@@ -24,6 +35,10 @@
             v-html="wrapSearchText(article.text)"
         />
         <!-- eslint-enable vue/no-v-html -->
+        <div :class="$style.foot">
+            <span class="sxci-eye">{{ article.statistics.viewCount }}</span>
+            <span class="sxci-like">{{ article.statistics.likeCount }}</span>
+        </div>
     </div>
 </template>
 
@@ -31,7 +46,7 @@
 .card {
     background: white;
     margin: 6px 10px 6px 10px;
-    padding: 15px;
+    padding: 15px 15px 5px 15px;
     box-shadow: 2px 2px 3px lightgray;
 }
 
@@ -75,10 +90,14 @@
 .search-text {
     color: red;
 }
+
+.foot span {
+    font-size: 14px;
+}
 </style>
 
 <script>
-import { getDate, format } from '@/utils/date-utils'
+import { getRelativeDate } from '@/utils/date-utils'
 import { encode as htmlEncode } from '@/utils/html-code'
 import { encode as regExpEncode } from '@/utils/regexp-utils'
 
@@ -100,28 +119,7 @@ export default {
     },
     methods: {
         getRelativeDate (time) {
-            if (!(time instanceof Date)) {
-                time = new Date(time)
-            }
-            const dayCount = 24 * 60 * 60 * 1000
-            const now = new Date()
-            const interval = now.getTime() - time.getTime()
-            if (interval < 60 * 60 * 1000) {
-                return Math.ceil(interval / dayCount, 1) + '天后'
-            }
-            if (interval <= 0) {
-                return '即将'
-            }
-            if (interval < 1 * 60 * 1000) {
-                return '刚刚'
-            }
-            if (now - getDate(time).getTime() < 24 * 60 * 60 * 1000) {
-                return format(time, 'HH:mm')
-            }
-            if (now.getFullYear() === time.getFullYear()) {
-                return format(time, 'MM:dd')
-            }
-            return format(time, 'yyyy-MM-dd')
+            return getRelativeDate(time)
         },
         wrapSearchText (text) {
             let res = htmlEncode(text)

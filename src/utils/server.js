@@ -21,15 +21,13 @@ export function unwrapUrl (urlObj) {
     }
     let res = urlObj.path.startsWith('/') ? urlObj.path : ('/' + urlObj.path)
     let queryStr = ''
-    if (urlObj.queries && urlObj.queries.length > 0) {
-        for (const query of urlObj.queries) {
-            if (!query.disable) {
-                let value = query.value
-                if (value === undefined || value === null) {
-                    value = ''
-                }
-                queryStr += query.name + '=' + encodeURIComponent(value) + '&'
+    if (urlObj.query) {
+        for (const key of Object.keys(urlObj.query)) {
+            let value = urlObj.query[key]
+            if (value === undefined || value === null) {
+                value = ''
             }
+            queryStr += key + '=' + encodeURIComponent(value) + '&'
         }
     }
     if (queryStr.length) {

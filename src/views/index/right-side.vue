@@ -21,7 +21,7 @@
                 :href="loginUrl"
             >登录使用更多功能</a>
         </div>
-        <div :class="$style.hr" />
+        <div class="split-line" />
         <div>
             <b><small>最新内容</small></b>
             <router-link
@@ -33,7 +33,7 @@
                 {{ a.creator.name }} : {{ a.title }}
             </router-link>
         </div>
-        <div :class="$style.hr" />
+        <div class="split-line" />
         <div>
             <a
                 :class="$style.link"
@@ -50,7 +50,7 @@
                 <small>此网站仅用于演示</small>
             </p>
         </div>
-        <div :class="[ $style.hr, $style.lastHr ]" />
+        <div :class="[ 'split-line', $style.lastHr ]" />
     </div>
 </template>
 
@@ -68,13 +68,6 @@
     & > div {
         width: 100%;
     }
-}
-
-.hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-top: 1px solid lightgray;
-    box-shadow: 0px 0px 3px #fefefe;
 }
 
 .link {
@@ -126,7 +119,7 @@ export default {
         }
     },
     async mounted () {
-        this.latestArticles = await getResult(getJson('/articles/latest?count=5'))
+        this.latestArticles = await getResult(getJson('/articles/breif/latest?count=5'))
     }
 }
 </script>

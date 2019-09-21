@@ -66,8 +66,7 @@ export default {
     data () {
         return {
             collapse: false,
-            loginUrl:
-                process.env.VARIABLES.GATEWAY_PATH_PREFIX +
+            loginUrl: process.env.VARIABLES.GATEWAY_PATH_PREFIX +
                 '/login/redirect?redirect=' +
                 encodeURIComponent(document.location),
             logoutUrl: process.env.VARIABLES.LOGOUT_URL,
