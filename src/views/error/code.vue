@@ -47,6 +47,9 @@ export default {
             if (this.code === '403') {
                 return '没有权限'
             }
+            if (this.code === '401') {
+                return '请先登录'
+            }
             if (this.code === '500') {
                 return '内部错误'
             }
@@ -58,7 +61,8 @@ export default {
     },
     methods: {
         back () {
-            this.$router.back()
+            const history = this.$store.getters.history
+            this.$router.push(history[history.length - 1])
         }
     }
 }

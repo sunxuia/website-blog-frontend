@@ -3,13 +3,18 @@
         ref="commentListArea"
         :style=" { height: commentsLoadEnd ? '' : '100px' }"
     >
+        <div v-if="commentCount == 0">
+            <p style="color: #CEC7CE; font-size: 20px; text-align: center; margin-top: 10px; cursor: default;">
+                尚无评论
+            </p>
+        </div>
         <single-comment
             v-for="i in commentList"
             :key="i.id"
             :comment="i"
         />
         <div
-            v-show="true || commentCount > commentPageSize"
+            v-show="commentCount > commentPageSize"
             :class="$style.paginationClass"
         >
             <el-pagination

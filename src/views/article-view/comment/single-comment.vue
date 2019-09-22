@@ -13,8 +13,9 @@
                 <span>{{ getRelativeDate(comment.createTime) }}</span>
             </div>
             <!-- eslint-disable next-line vue/no-v-html -->
-            <div
+            <p
                 :class="$style.htmlContent"
+                style="margin-top: 2px; margin-bottom: 5px;"
                 v-html="contentHtml"
             />
         </div>
@@ -37,11 +38,6 @@
 .comment-title {
     font-size: 14px;
     margin-right: 5px;
-}
-
-.html-content > p {
-    margin-top: 2px;
-    margin-bottom: 5px;
 }
 </style>
 

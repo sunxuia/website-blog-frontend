@@ -9,7 +9,7 @@
                 :class="$style.link"
                 style="padding-top: 15px; padding-bottom: 15px"
             >
-                新建任务
+                新建文章
             </router-link>
         </div>
         <div

@@ -121,6 +121,25 @@ export function postJson (url, jsonData, arg = {}) {
     )
 }
 
+export function postFormData (url, data, arg = {}) {
+    if (!(data instanceof FormData)) {
+        const formData = new FormData()
+        for (const key of Object.keys(data)) {
+            formData.append(key, data[key])
+        }
+        data = formData
+    }
+    return postData(
+        url,
+        Object.assign(arg, {
+            body: data,
+            headers: {
+                'Content-Type': 'form/form-data'
+            }
+        })
+    )
+}
+
 export function putData (url, arg = {}) {
     return fetchData(
         url,

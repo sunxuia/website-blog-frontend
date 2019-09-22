@@ -14,7 +14,8 @@ const variables = {
     /**
      * user logout url
      */
-    LOGOUT_URL: 'https://example.com/info'
+    LOGOUT_URL: 'https://example.com/info',
+    FILE_PATH_PREFIX: '/api/file'
 }
 
 for (const key of Object.keys(variables)) {

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import createRoutes from './routes'
 import nprogress from 'nprogress'
 import eventBus from '../utils/event-bus'
+import store from '@/store/store'
 
 Vue.use(Router)
 
@@ -30,6 +31,7 @@ export default () => {
     router.beforeEach((to, from, next) => {
         nprogress.start()
         if (to.matched.length) {
+            store.commit('addHistory', from.fullPath)
             next()
         } else {
             next('/error?code=404')

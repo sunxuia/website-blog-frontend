@@ -24,7 +24,10 @@
             />
             <div :class="$style.card">
                 <!-- eslint-disable next-line vue/no-v-html -->
-                <p v-html="contentHtml" />
+                <p
+                    class="html-content"
+                    v-html="contentHtml"
+                />
                 <div class="split-line" />
                 <div class="children-justify">
                     <div>
@@ -145,7 +148,7 @@ export default {
     },
     async beforeRouteUpdate (to, from, next) {
         const id = to.params.id
-        this.article = getArticleData(id)
+        this.article = await getArticleData(id)
         if (this.isLoggedIn) {
             this.meData = await getMeData(id)
         } else {

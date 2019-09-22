@@ -133,3 +133,77 @@ M.mockMatchGetOk('glob', '/user/*/recent-article?count=5', mockMoreBreifArticleL
 M.mockMatchDeleteOk('glob', '/article/*', new Response('', {
     status: 200
 }))
+
+M.mockPostOk({
+    path: process.env.VARIABLES.FILE_PATH_PREFIX + '/file',
+    absolute: true
+}, {
+    id: 100,
+    name: 'test-file-name'
+})
+
+M.mockMatchGetOk('glob', '/article/*/resource', () => {
+    return Mock.mock({
+        id: 100,
+        title: '@ctitle',
+        createTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        editTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        contentType: 'markdown',
+        content: `
+## sub title
+
+conent
+
+column 1 | column 2 | column 3
+--- | --- | --- |
+cell1 | cell2 | cell 3
+cell1 | cell2 | cell 3
+        `,
+        creatorId: 1000,
+        files: []
+    })
+})
+
+M.mockMatchPutOk('glob', '/article/*/resource', () => {
+    return Mock.mock({
+        id: 100,
+        title: '@ctitle',
+        createTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        editTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        contentType: 'markdown',
+        content: `
+## sub title
+
+conent
+
+column 1 | column 2 | column 3
+--- | --- | --- |
+cell1 | cell2 | cell 3
+cell1 | cell2 | cell 3
+        `,
+        creatorId: 1000,
+        files: []
+    })
+})
+
+M.mockMatchPostOk('glob', '/article/*/resource', () => {
+    return Mock.mock({
+        id: 100,
+        title: '@ctitle',
+        createTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        editTime: '@date(\'yyyy-MM-dd HH:mm:ss.SS+0800\')',
+        contentType: 'markdown',
+        content: `
+## sub title
+
+conent
+
+column 1 | column 2 | column 3
+--- | --- | --- |
+cell1 | cell2 | cell 3
+cell1 | cell2 | cell 3
+        `,
+        creatorId: 1000,
+        files: []
+    })
+})

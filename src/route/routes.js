@@ -24,6 +24,8 @@ function functionRoute () {
     addView('/', 'index/index')
     addView('/search', 'index/search')
     addView('/article/:id/view', 'article-view/view')
+    addView('/article/create', 'article-edit/create')
+    addView('/article/:id/edit', 'article-edit/edit')
 
     return res
 }
