@@ -11,7 +11,7 @@ const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 
 const config = merge(baseWebpackConfig, {
     entry: {
-        app: resolvePath('/src/main-dev.js')
+        app: resolvePath('/mocks/main-dev.js')
     },
     mode: 'development',
     devtool: 'eval-source-map',

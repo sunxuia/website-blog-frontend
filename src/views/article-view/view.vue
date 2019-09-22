@@ -18,7 +18,7 @@
                 </div>
             </div>
             <management
-                v-if="!showManagement"
+                v-if="showManagement"
                 :class="$style.card"
                 :article="article"
             />

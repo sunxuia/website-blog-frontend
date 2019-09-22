@@ -1,5 +1,5 @@
 if (process.env.MOCK_FETCH) {
-    require('./mocks/mock-fetch')
+    require('./mock-fetch')
     console.log('mock-fetch included')
 }
-import('./main')
+import('../src/main')
