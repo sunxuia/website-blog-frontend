@@ -46,7 +46,7 @@ export default {
             this.$router.push(`/article/${this.article.id}/edit`)
         },
         async deleteArticle () {
-            await getResult(deleteData(`/article/${this.article.id}`))
+            await getResult(deleteData(`/article/${this.article.id}/resource`))
                 .then(() => {
                     eventBus.$emit('showMessage', {
                         showClose: true,

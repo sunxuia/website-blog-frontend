@@ -74,7 +74,7 @@ export default {
             const width = 300; const height = 400
             const xPos = (screen.width - width) / 2
             const yPos = (screen.height - height) / 2
-            const shareUrl = unwrapUrl(`/article/${this.article.id}/share&mediaType=${socialMediaType}`)
+            const shareUrl = unwrapUrl(`/article/${this.article.id}/share?mediaType=${socialMediaType}`)
             window.open(shareUrl, 'newwindow',
                 `height=${height}, 
                 width=${width}, 

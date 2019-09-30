@@ -119,7 +119,7 @@ export default {
         }
     },
     async mounted () {
-        this.latestArticles = await getResult(getJson('/articles/breif/latest?count=5'))
+        this.latestArticles = await getResult(getJson('/articles/latest/basic?count=5'))
     }
 }
 </script>

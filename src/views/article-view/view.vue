@@ -51,6 +51,7 @@
             <comments
                 :class="$style.card"
                 :article-id="article.id"
+                :comment-count="article.statistics.commentCount"
             />
         </div>
         <right-side :creator-id="article.creatorId" />
@@ -86,7 +87,7 @@ import ShareBar from './share-bar'
 import Comments from './comment/comments'
 import { getRelativeDate } from '@/utils/date-utils'
 import { getJsonResult, getResult } from '@/utils/server-wrapper'
-import { putData } from '@/utils/server'
+import { postData } from '@/utils/server'
 import { Remarkable } from 'remarkable'
 import store from '@/store/store'
 import { encode as htmlEncode } from '@/utils/html-code'
@@ -103,7 +104,9 @@ export default {
         return {
             article: {
                 id: 0,
-                statistics: {},
+                statistics: {
+                    commentCount: 0
+                },
                 creatorId: 0
             },
             meData: {
@@ -137,9 +140,8 @@ export default {
     methods: {
         async onLike () {
             const like = !this.meData.liked
-            const likeCount = await getResult(putData(`/article/${this.article.id}/like?like=${like}`)
-                .then(i => i.text()))
-            this.statistics.likeCount = Number.parseInt(likeCount)
+            await getResult(postData(`/article/${this.article.id}/like?like=${like}`))
+            this.statistics.likeCount += like ? 1 : -1
             this.meData.liked = like
         },
         getRelativeDate (date) {

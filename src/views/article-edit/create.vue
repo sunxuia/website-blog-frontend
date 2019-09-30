@@ -95,9 +95,11 @@ export default {
         submitArticle () {
             this.$refs.titleForm.validate(async valid => {
                 if (valid) {
+                    console.log('验证', valid)
                     const isArticleValid = this.$refs.editView.check()
                     if (isArticleValid) {
-                        this.article = await getResult(postJson(`/article/${this.article.id}/resource`, this.article)
+                        console.log('即将创建')
+                        this.article = await getResult(postJson('/article/resource', this.article)
                             .then(i => i.json()))
                         eventBus.$emit('showMessage', {
                             showClose: true,

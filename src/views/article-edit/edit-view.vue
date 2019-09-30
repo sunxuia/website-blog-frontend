@@ -74,7 +74,7 @@
 import { Remarkable } from 'remarkable'
 import { encode as htmlEncode } from '@/utils/html-code'
 import eventBus from '@/utils/event-bus'
-import { postFormData } from '@/utils/server'
+import { postData } from '@/utils/server'
 import { getResult } from '@/utils/server-wrapper'
 
 export default {
@@ -140,27 +140,21 @@ export default {
             return isValid
         },
         onPaste (e) {
-            console.log('paste event', e)
             if (!(e.clipboardData && e.clipboardData.items)) {
                 return
             }
-            if (this.article.contentType !== 'markdown') {
-                eventBus.$emit('showMessage', {
-                    showClose: true,
-                    type: 'error',
-                    message: '此格式不支持图片粘贴'
-                })
-                return
-            }
             for (const item of e.clipboardData.items) {
-                console.log('paste', item)
-
-                if (item.kind === 'string') {
-                    item.getAsString(function (str) {
-                        console.log('paste string', str)
-                    })
-                } else if (item.kind === 'file') {
-                    this.uploadFile(item.getAsFile())
+                if (item.kind === 'file') {
+                    if (this.article.contentType !== 'markdown') {
+                        eventBus.$emit('showMessage', {
+                            showClose: true,
+                            type: 'error',
+                            message: '此格式不支持图片粘贴'
+                        })
+                    } else {
+                        this.uploadFile(item.getAsFile())
+                        break
+                    }
                 }
             }
         },
@@ -179,18 +173,20 @@ export default {
                 type: 'info',
                 message: '文件上传中'
             })
-            const fileInfo = await getResult(postFormData({
-                path: process.env.VARIABLES.FILE_PATH_PREFIX + '/file',
+            const fileId = await getResult(postData({
+                path: process.env.VARIABLES.FILE_PATH_PREFIX + '/file/upload',
                 absolute: true
-            }, formData).then(i => i.json()))
+            }, {
+                body: formData
+            }).then(i => i.text()))
             eventBus.$emit('showMessage', {
                 showClose: true,
                 type: 'success',
                 message: '文件上传成功'
             })
-            this.article.files.push(fileInfo.id)
+            this.article.files.push(fileId)
             this.insertAtCursor(this.$refs.input.$el.children[0],
-                `[${fileInfo.name}](${process.env.VARIABLES.FILE_PATH_PREFIX}/file/${fileInfo.id})`)
+                `![${file.name}](${process.env.VARIABLES.FILE_PATH_PREFIX}/file/${fileId})`)
         },
         insertAtCursor (myField, myValue) {
             if (document.selection) {

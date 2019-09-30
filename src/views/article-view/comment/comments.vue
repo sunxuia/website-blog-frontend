@@ -30,6 +30,10 @@ export default {
         articleId: {
             type: Number,
             required: true
+        },
+        commentCount: {
+            type: Number,
+            required: true
         }
     },
     methods: {

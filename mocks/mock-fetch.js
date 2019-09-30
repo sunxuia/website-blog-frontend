@@ -9,9 +9,16 @@ M.mockGetOk({ path: '/login/status', gateway: true }, {
     avatarUrl: 'https://b-ssl.duitang.com/uploads/item/201712/22/20171222223729_d8HCB.jpeg'
 })
 
-M.mockGetOk('/articles/breif/latest?count=5', () => mockMoreBreifArticleList(5))
+M.mockGetOk({ path: process.env.VARIABLES.USER_PATH_PREFIX + '/me/info', absolute: true }, {
+    id: Random.integer(),
+    name: '王大拿',
+    roles: ['ROLE_NORMAL'],
+    avatarUrl: 'https://b-ssl.duitang.com/uploads/item/201712/22/20171222223729_d8HCB.jpeg'
+})
 
-function mockMoreBreifArticleList (count) {
+M.mockGetOk('/articles/latest/basic?count=5', () => mockBasicArticleDTO(5))
+
+function mockBasicArticleDTO (count) {
     return M.mockList({
         'id|+1': Random.integer(0),
         title: '@ctitle',
@@ -117,8 +124,6 @@ M.mockMatchPostOk('glob', '/article/*/comment', () => Mock.mock({
     }
 }))
 
-M.mockMatchGetOk('glob', 'article/*/comments/count', new Response('101'), { status: 200 })
-
 M.mockMatchPutOk('glob', '/article/*/like?like=true', () => new Response('201', { status: 200 }))
 M.mockMatchPutOk('glob', '/article/*/like?like=false', () => new Response('199', { status: 200 }))
 
@@ -128,7 +133,7 @@ M.mockMatchGetOk('glob', '/user/*/info', Mock.mock({
     avatarUrl: 'https://b-ssl.duitang.com/uploads/item/201712/22/20171222223729_d8HCB.jpeg'
 }))
 
-M.mockMatchGetOk('glob', '/user/*/recent-article?count=5', mockMoreBreifArticleList(5))
+M.mockMatchGetOk('glob', '/user/*/recent-article?count=5', mockBasicArticleDTO(5))
 
 M.mockMatchDeleteOk('glob', '/article/*', new Response('', {
     status: 200

@@ -62,6 +62,10 @@ export default {
         articleId: {
             type: Number,
             required: true
+        },
+        commentCount: {
+            type: Number,
+            required: true
         }
     },
     data () {
@@ -71,8 +75,7 @@ export default {
             commentPageSize: 20,
             commentPageIndex: 1,
             commentsLoadingInstance: null,
-            commentList: [],
-            commentCount: 0
+            commentList: []
         }
     },
     watch: {
@@ -113,13 +116,12 @@ export default {
         async loadComments () {
             this.commentsLoaded = true
             this.commentList = await getJsonResult({
-                path: `/article/${this.articleId}/comments`,
+                path: `/article/${this.articleId}/comment/list`,
                 query: {
                     pageIndex: this.commentPageIndex,
                     pageSize: this.commentPageSize
                 }
             })
-            this.commentCount = await getJsonResult(`/article/${this.articleId}/comments/count`)
             this.commentsLoadEnd = true
             this.endLoading()
         },
@@ -161,6 +163,7 @@ export default {
         },
         addComment (newComment) {
             this.commentList.splice(0, 0, newComment)
+            this.commentCount++
         }
     }
 }

@@ -24,8 +24,15 @@ eventBus.$on('loading-end', removeInitialLoadingAnimation)
 getJson({ path: '/login/status', gateway: true }).then(user => {
     if (user == null) {
         user = {}
+    } else {
+        store.commit('setUser', user)
+        getJson({
+            path: process.env.VARIABLES.USER_PATH_PREFIX + '/me/info',
+            absolute: true
+        }).then(info => {
+            store.commit('setUser', info)
+        })
     }
-    store.commit('setUser', user)
 
     const app = new Vue({
         el: '#app',
@@ -40,6 +47,6 @@ getJson({ path: '/login/status', gateway: true }).then(user => {
 }).catch(e => {
     document.querySelector('#initial-loading').innerHTML = `
     <p>发生了错误(╯°Д°)╯</p>
-    <p>${e}</p>
+    <p>${e.message || (e.status ? e.status + ' ' : '') + e.statusText}</p>
     `
 })

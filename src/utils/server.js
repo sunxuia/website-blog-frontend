@@ -10,7 +10,7 @@ function fetchData (url, arg) {
     return wrapFetchResult(fetch(
         realUrl,
         Object.assign(arg, {
-            credentials: 'same-origin'
+            credentials: 'include'
         })
     ), realUrl)
 }
@@ -93,7 +93,11 @@ function wrapStatusText (status, statusText) {
 }
 
 export function getJson (url, arg = {}) {
-    return getData(url, arg).then(res => res.json().catch(e => { }))
+    return getData(url, Object.assign({
+        headers: {
+            Accept: 'application/json'
+        }
+    })).then(res => res.json().catch(e => { }))
 }
 
 export function getText (url, arg = {}) {

@@ -8,12 +8,13 @@
             />
             <div style="text-align: center; margin: 10px">
                 <el-button
-                    class="el-icon-arrow-right"
+                    :class="canLoadMore ? 'el-icon-arrow-right' : ''"
                     :loading="loadingMore"
                     style="width: 100%;"
+                    :disabled="!canLoadMore"
                     @click="loadMore"
                 >
-                    查看更多
+                    {{ canLoadMore ? '查看更多' : '没有了 ╮(╯_╰)╭' }}
                 </el-button>
             </div>
         </div>
@@ -51,14 +52,24 @@ export default {
     data () {
         return {
             list: [],
-            loadingMore: false
+            loadingMore: false,
+            canLoadMore: true
         }
     },
     methods: {
         async loadMore () {
             this.loadingMore = true
-            const list = await getJsonResult('/articles/latest?count=20')
+            const lastTimeKey = this.list.length > 0
+                ? this.list[this.list.length - 1].timeKey : null
+            const list = await getJsonResult({
+                path: '/articles/latest',
+                query: {
+                    count: 20,
+                    lastTimeKey
+                }
+            })
             this.list.push(...list)
+            this.canLoadMore = list.length === 20
             this.loadingMore = false
         }
     },

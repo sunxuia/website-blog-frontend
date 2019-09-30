@@ -10,6 +10,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin')
 const variables = require('./variables')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const useSourceMap = true
 
@@ -96,6 +97,9 @@ module.exports = merge(baseWebpackConfig, {
         // notify on errors
         new FriendlyErrorsPlugin({
             onErrors: utils.notifyOnError
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: process.env.SHOW_ANALYZE === 'true' ? 'server' : 'disabled'
         })
     ]
 })

@@ -24,7 +24,16 @@ const config = merge(baseWebpackConfig, {
         historyApiFallback: {
             index: variables.PUBLIC_PATH
         },
-        hot: true
+        hot: true,
+        inline: true,
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:8400',
+                changeOrigin: true,
+                secure: false,
+                pathRewrite: { '^/api': '' }
+            }
+        }
     },
     module: {
         rules: [
@@ -62,7 +71,7 @@ const config = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             template: resolvePath('/index.html'),
             favicon: resolvePath('logo.png'),
-            publicPath: variables.PUBLIC_PATH
+            publicPath: variables.PUBLIC_PATH + '/'
         }),
         // hot replacement for webpack-dev-server
         new webpack.HotModuleReplacementPlugin()

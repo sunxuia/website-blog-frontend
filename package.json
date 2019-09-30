@@ -10,7 +10,8 @@
         "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js",
         "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
         "dev-mock": "cross-env MOCK_FETCH=true npm run dev",
-        "test": "cross-env BABEL_ENV=test jest"
+        "test": "cross-env BABEL_ENV=test jest",
+        "analyze": "cross-env SHOW_ANALYZE=true npm run build"
     },
     "browserslist": [
         "last 2 version",
@@ -101,6 +102,7 @@
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.10",
         "webpack": "^4.40.2",
+        "webpack-bundle-analyzer": "^3.5.1",
         "webpack-cli": "^3.3.8",
         "webpack-dev-server": "^3.8.0",
         "webpack-merge": "^4.2.2"

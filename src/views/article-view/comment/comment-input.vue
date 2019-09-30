@@ -6,7 +6,7 @@
             style="align-items: flex-start"
         >
             <el-avatar
-                :size="80"
+                :size="70"
                 fit="fill"
                 :src="user.avatarUrl"
             />
