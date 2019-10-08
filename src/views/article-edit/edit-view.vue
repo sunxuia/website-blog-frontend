@@ -65,7 +65,7 @@
     background: white;
     padding: 15px;
     box-shadow: 2px 2px 3px lightgray;
-    min-width: 480px;
+    // min-width: 480px;
     margin-bottom: 10px;
 }
 </style>
@@ -184,7 +184,7 @@ export default {
                 type: 'success',
                 message: '文件上传成功'
             })
-            this.article.files.push(fileId)
+            this.article.fileIds.push(fileId)
             this.insertAtCursor(this.$refs.input.$el.children[0],
                 `![${file.name}](${process.env.VARIABLES.FILE_PATH_PREFIX}/file/${fileId})`)
         },

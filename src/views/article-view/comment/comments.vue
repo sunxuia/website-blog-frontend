@@ -12,6 +12,7 @@
         />
         <comment-list
             ref="commentList"
+            :statistics="statistics"
             :article-id="articleId"
         />
     </div>
@@ -31,8 +32,8 @@ export default {
             type: Number,
             required: true
         },
-        commentCount: {
-            type: Number,
+        statistics: {
+            type: Object,
             required: true
         }
     },

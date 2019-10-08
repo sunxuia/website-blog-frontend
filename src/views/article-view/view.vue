@@ -51,7 +51,7 @@
             <comments
                 :class="$style.card"
                 :article-id="article.id"
-                :comment-count="article.statistics.commentCount"
+                :statistics="article.statistics"
             />
         </div>
         <right-side :creator-id="article.creatorId" />
@@ -134,7 +134,7 @@ export default {
             return !!this.$store.getters.user.id
         },
         showManagement () {
-            return this.article.id === this.$store.getters.user.id
+            return this.article.creatorId === this.$store.getters.user.id
         }
     },
     methods: {

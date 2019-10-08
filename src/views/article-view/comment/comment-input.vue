@@ -98,7 +98,7 @@ export default {
             } else {
                 const comment = await getResult(postJson(`/article/${this.articleId}/comment`, {
                     content: this.conent,
-                    conentType: this.conentType
+                    contentType: this.conentType
                 }).then(i => i.json()))
 
                 this.conent = ''

@@ -95,7 +95,6 @@ export default {
         submitArticle () {
             this.$refs.titleForm.validate(async valid => {
                 if (valid) {
-                    console.log('验证', valid)
                     const isArticleValid = this.$refs.editView.check()
                     if (isArticleValid) {
                         console.log('即将创建')

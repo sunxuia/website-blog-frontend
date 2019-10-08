@@ -63,8 +63,8 @@ export default {
             type: Number,
             required: true
         },
-        commentCount: {
-            type: Number,
+        statistics: {
+            type: Object,
             required: true
         }
     },
@@ -78,16 +78,18 @@ export default {
             commentList: []
         }
     },
+    computed: {
+        commentCount () {
+            return this.statistics.commentCount
+        }
+    },
     watch: {
         articleId (newValue, oldValue) {
-            if (!newValue && newValue !== oldValue) {
+            if (newValue && newValue !== oldValue) {
                 this.commentsLoaded = false
                 this.initialCommentsLoading()
             }
         }
-    },
-    mounted () {
-        this.initialCommentsLoading()
     },
     methods: {
         isElementInViewport () {
@@ -163,7 +165,7 @@ export default {
         },
         addComment (newComment) {
             this.commentList.splice(0, 0, newComment)
-            this.commentCount++
+            this.statistics.commentCount++
         }
     }
 }

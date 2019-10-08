@@ -10,9 +10,9 @@
             <div>
                 <img
                     :class="$style.cardTitleAvatar"
-                    :src="article.creator.avatarUrl"
+                    :src="creator.avatarUrl"
                 >
-                <span>{{ article.creator.name }}</span>
+                <span>{{ creator.name }}</span>
             </div>
             <div style="font-size: 14px;">
                 <el-popover
@@ -115,6 +115,15 @@ export default {
     computed: {
         hasEdit () {
             return this.article.editTime && this.article.editTime !== this.article.createTime
+        },
+        creator () {
+            if (this.article.creator) {
+                return this.article.creator
+            }
+            return {
+                name: '[已注销]',
+                avatarUrl: undefined
+            }
         }
     },
     methods: {

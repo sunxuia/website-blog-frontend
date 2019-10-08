@@ -30,7 +30,7 @@
                 :to="`/article/${a.id}/view`"
                 :class="$style.link"
             >
-                {{ a.creator.name }} : {{ a.title }}
+                {{ !a.creator ? '[已注销]' : a.creator.name }} : {{ a.title }}
             </router-link>
         </div>
         <div class="split-line" />

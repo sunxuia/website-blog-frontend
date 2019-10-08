@@ -78,6 +78,7 @@ export default {
         nprogress.set(0.9)
         next(vm => {
             vm.$data.list = list
+            vm.$data.canLoadMore = list.length >= 20
         })
     }
 }

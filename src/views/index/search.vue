@@ -140,7 +140,7 @@ export default {
     async beforeRouteEnter (to, from, next) {
         const text = to.query.text
         if (text) {
-            Promise.all([getSearchResult(text, 20, 1), getSearchTotal(text)])
+            Promise.all([getSearchResult(text, 1, 20), getSearchTotal(text)])
                 .then(res => {
                     nprogress.set(0.9)
                     next(vm => {
