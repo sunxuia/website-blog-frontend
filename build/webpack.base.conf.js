@@ -11,7 +11,7 @@ module.exports = {
         app: resolvePath('/src/main.js')
     },
     output: {
-        publicPath: variables.PUBLIC_PATH
+        publicPath: utils.attachEnd(variables.PUBLIC_PATH, '/')
     },
     resolve: {
         extensions: ['.js', '.json', '.css', '.vue'],

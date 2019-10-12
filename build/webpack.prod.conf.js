@@ -77,7 +77,7 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             template: resolvePath('/index.html'),
             favicon: resolvePath('logo.png'),
-            publicPath: variables.PUBLIC_PATH,
+            publicPath: utils.attachEnd(variables.PUBLIC_PATH, '/'),
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

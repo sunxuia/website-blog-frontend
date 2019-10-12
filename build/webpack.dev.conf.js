@@ -17,12 +17,12 @@ const config = merge(baseWebpackConfig, {
     devtool: 'eval-source-map',
     // webpack-dev-server
     devServer: {
-        publicPath: variables.PUBLIC_PATH,
+        publicPath: utils.attachEnd(variables.PUBLIC_PATH, '/'),
         port: process.env.PORT,
         host: 'localhost',
         clientLogLevel: 'warning',
         historyApiFallback: {
-            index: variables.PUBLIC_PATH
+            index: utils.attachEnd(variables.PUBLIC_PATH, '/')
         },
         hot: true,
         inline: true,
@@ -71,7 +71,7 @@ const config = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             template: resolvePath('/index.html'),
             favicon: resolvePath('logo.png'),
-            publicPath: variables.PUBLIC_PATH + '/'
+            publicPath: utils.attachEnd(variables.PUBLIC_PATH, '/')
         }),
         // hot replacement for webpack-dev-server
         new webpack.HotModuleReplacementPlugin()

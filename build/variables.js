@@ -2,7 +2,7 @@ const variables = {
     /**
      * public path
      */
-    PUBLIC_PATH: '/page/blog',
+    PUBLIC_PATH: '/blog',
     /**
      * restful api request path, do not ends with '/'
      */

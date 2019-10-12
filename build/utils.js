@@ -109,3 +109,17 @@ exports.notifyOnError = function (severity, errors) {
         })
     }
 }
+
+exports.trimEnd = function (str, end) {
+    if (str && str.endWith(end)) {
+        return str.substring(0, str.length - end.length)
+    }
+    return str
+}
+
+exports.attachEnd = function (str, end) {
+    if (str && str.endsWith(end)) {
+        return str
+    }
+    return str + end
+}
